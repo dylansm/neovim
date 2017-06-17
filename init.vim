@@ -72,7 +72,7 @@ call plug#end()
 
 syntax on
 filetype plugin indent on
-colorscheme onedark
+" colorscheme onedark
 
 hi NERDTreeOpenable ctermfg=246
 hi NERDTreeClosable ctermfg=250
