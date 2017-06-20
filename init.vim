@@ -206,6 +206,7 @@ let g:syntastic_html_tidy_ignore_errors = [
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 let g:go_list_type = "quickfix"
+let g:go_autodetect_gopath = 0
 
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
