@@ -36,6 +36,7 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-markdown'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'rhysd/vim-clang-format'
+Plug 'kana/vim-operator-user'
 Plug 'Rip-Rip/clang_complete'
 Plug 'tpope/vim-liquid'
 Plug 'tpope/vim-haml'
@@ -134,7 +135,7 @@ set nolist
 set wildmenu
 set wildmode=longest,list
 set shortmess+=I
-set clipboard=unnamed
+set clipboard=unnamedplus
 set nofoldenable
 set showmode
 set omnifunc=syntaxcomplete#Complete
@@ -153,7 +154,8 @@ endif
 
 set rtp+=/usr/local/opt/fzf
 
-let g:clang_library_path='/usr/local/opt/llvm/lib'
+" let g:clang_library_path='/usr/local/opt/llvm/lib'
+let g:clang_library_path='/usr/lib'
 
 au FileType go nmap <Leader>r <Plug>(go-run)
 au FileType go nmap <Leader>b <Plug>(go-build)
@@ -258,8 +260,6 @@ nmap <silent> <C-K> <Plug>LocationPrevious
 nmap <silent> <C-J> <Plug>LocationNext
 nmap <silent> <Leader>s :!standard-format -w %<CR>
 
-" Clang Format
-au FileType c,cpp,objc nmap <silent> <Leader>f :ClangFormat<CR>
 nmap <Leader>m :!make<CR>
 
 " Style Format
@@ -438,14 +438,12 @@ nmap <silent>;m :MarkedOpen!<CR>
 " let g:javascript_conceal_super      = "Ω"
 
 if has("autocmd")
-  autocmd BufWritePost,FileWritePost *.coffee if exists("g:coffee") | :silent !coffee -c <afile>
+  au BufRead,BufNewFile *.h,*.hpp,*.c,*.cpp,*.swift set ts=4 sw=4 sts=4
+  au BufWritePost *.h,*.c,*.hpp,*.cpp,*.swift ClangFormat
+  au BufWritePost,FileWritePost *.coffee if exists("g:coffee") | :silent !coffee -c <afile>
   au BufRead,BufNewFile *.hamlc set ft=haml
   au BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
   au BufEnter *.c compiler gcc
-  au BufRead,BufNewFile *.h,*.hpp,*.c,*.cpp,*.swift set ts=4 sw=4 sts=4
-  " au BufRead,BufNewFile *.cpp set ts=4 sw=4 sts=4
-  " au BufRead,BufNewFile *.h set ts=4 sw=4 sts=4
-  " au BufRead,BufNewFile *.hpp set ts=4 sw=4 sts=4
   au BufRead,BufNewFile *.conf set ft=apache
   au BufRead,BufNewFile *.go set noet ts=4 sw=4
   au BufRead,BufNewFile *.markdown set noet sts=4 sw=4
